@@ -42,7 +42,7 @@ class EncryptEmailProtocol(LineReceiver):
 		self.transport.loseConnection()
 
 	def __encryptLine(self, line):
-		# Duplicate key depending on length of input for performance.
+		# Duplicate key depending on length of input.
 		key = self.factory.key * (len(line) / len(self.factory.key) + 1)
 		# Return a simple XORed result.
 		return "".join(map(lambda x: "%02x" % x, [ord(key[i]) ^ ord(c) for i, c in enumerate(line)]))
@@ -80,6 +80,6 @@ if __name__ == "__main__":
 			sys.exit(2)
 		sys.exit(0)
 	else:
-		sys.stdout.write("usage: %s start|stop|restart\n" % sys.argv[0])
+		sys.stdout.write("usage: {0} start|stop|restart\n".format(sys.argv[0]))
 		sys.exit(2)
 
